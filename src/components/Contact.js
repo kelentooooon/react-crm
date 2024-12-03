@@ -73,6 +73,7 @@ const Contact = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="d-flex justify-content-between align-items-center p-2 fixed-bottom position-absolute">
+                <input style={{display : "none"}}  />
                 <input
                   type="text"
                   className="form-control p-3 position-relative"
