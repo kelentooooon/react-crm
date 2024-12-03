@@ -3,18 +3,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 const Contact = () => {
   const [users, setUsers] = useState([]);
+  const [massage, setmassage] = useState([]);
   const [inputs, setInputs] = useState({});
 
-  function getUsers() {
-    axios
-      .get("http://localhost/chatapi/fetch_users.php")
-      .then(function (response) {
-        console.log(response.data);
-        setUsers(response.data);
-      });
-  }
+
 
   useEffect(() => {
+    function getUsers() {
+      axios
+        .get("http://localhost/chatapi/fetch_users.php")
+        .then(function (response) {
+          console.log(response.data);
+          setUsers(response.data);
+        });
+    }
     getUsers();
   }, []);
 
@@ -31,6 +33,25 @@ const Contact = () => {
     console.log(inputs);
   };
 
+  // const handleOpenMsg = (event) => {
+  //   event.preventDefault();
+  //   axios.post("http://localhost/chatapi/fetch_massage.php", inputs);
+  //   console.log(inputs);
+  // };
+
+  function getMassages() {
+    axios
+      .get("http://localhost/chatapi/fetch_massage.php")
+      .then(function (response) {
+        console.log(response.data);
+        setmassage(response.data);
+      });
+  }
+
+  useEffect(() => {
+    getMassages();
+  }, []);
+
   return (
     <div className="Contact py-2">
       <div className="container-fluid">
@@ -45,7 +66,7 @@ const Contact = () => {
                   className="list-group-item px-3 my-1 border-0 rounded bg-secondary-subtle"
                   aria-current="true"
                 >
-                  <a href={"/" + user.id} className="text-decoration-none">
+                  <a href={"/" + user.id}  className="text-decoration-none">
                     <div className="d-flex justify-content-between align-items-center">
                       <img
                         src="https://via.placeholder.com/50"
@@ -73,7 +94,7 @@ const Contact = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="d-flex justify-content-between align-items-center p-2 fixed-bottom position-absolute">
-                <input style={{display : "none"}}  />
+                {/* <input style={{display : "none"}} value={user.id}  /> */}
                 <input
                   type="text"
                   className="form-control p-3 position-relative"
@@ -85,7 +106,7 @@ const Contact = () => {
                   className="btn bg-secondary-subtle fs-4 position-absolute"
                   style={{ right: 15 }}
                 >
-                  <i class="bi bi-send bg-secondary-subtle"></i>
+                  <i className="bi bi-send bg-secondary-subtle"></i>
                 </button>
               </div>
             </form>
